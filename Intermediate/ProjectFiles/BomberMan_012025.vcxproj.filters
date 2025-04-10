@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\BomberMan_012025.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BomberMan_012025.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\BomberMan_012025Editor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\BomberMan_012025">
+      <UniqueIdentifier>{27467F05-C02E-30FD-8BCC-89DBA20C4EB5}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Bloque.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Bloque.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueAcero.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueAcero.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueBurbuja.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueBurbuja.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueCesped.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueCesped.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueConcreto.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueConcreto.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueFuego.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueFuego.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueHielo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueHielo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueLadrillo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueLadrillo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMadera.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMadera.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueSline.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueSline.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueVidrio.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueVidrio.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Bomba.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Bomba.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <None Include="..\..\Source\BomberMan_012025\BomberMan_012025.Build.cs">
+      <Filter>Source\BomberMan_012025</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025Character.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025Character.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025GameMode.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025GameMode.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Capsula.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Capsula.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Enemigo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Enemigo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <Filter Include="Source\BomberMan_012025\.vs">
+      <UniqueIdentifier>{E5EBD716-EB74-3B9D-BE5C-11D5B4A99585}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BomberMan_012025\.vs\ProjectSettings.json">
+      <Filter>Source\BomberMan_012025\.vs</Filter>
+    </None>
+    <None Include="..\..\Source\BomberMan_012025\.vs\slnx.sqlite">
+      <Filter>Source\BomberMan_012025\.vs</Filter>
+    </None>
+    <None Include="..\..\Source\BomberMan_012025\.vs\VSWorkspaceState.json">
+      <Filter>Source\BomberMan_012025\.vs</Filter>
+    </None>
+    <Filter Include="Source\BomberMan_012025\.vs\BomberMan_012025">
+      <UniqueIdentifier>{9818D47A-FB03-3DBE-8E81-150772D36CCE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\BomberMan_012025\.vs\BomberMan_012025\FileContentIndex">
+      <UniqueIdentifier>{72F2C84B-5BDE-3828-9C78-FA39BD10DB62}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BomberMan_012025\.vs\BomberMan_012025\FileContentIndex\e0fe115a-3ef9-4e93-b886-ffe2d42a2d60.vsidx">
+      <Filter>Source\BomberMan_012025\.vs\BomberMan_012025\FileContentIndex</Filter>
+    </None>
+    <Filter Include="Source\BomberMan_012025\.vs\BomberMan_012025\v17">
+      <UniqueIdentifier>{A0E370E9-9B9E-3579-BE8A-6FF99429B111}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\BomberMan_012025\.vs\BomberMan_012025\v17\.wsuo">
+      <Filter>Source\BomberMan_012025\.vs\BomberMan_012025\v17</Filter>
+    </None>
+    <None Include="..\..\Source\BomberMan_012025\.vs\BomberMan_012025\v17\Browse.VC.db">
+      <Filter>Source\BomberMan_012025\.vs\BomberMan_012025\v17</Filter>
+    </None>
+    <None Include="..\..\Source\BomberMan_012025\.vs\BomberMan_012025\v17\DocumentLayout.json">
+      <Filter>Source\BomberMan_012025\.vs\BomberMan_012025\v17</Filter>
+    </None>
+  </ItemGroup>
+</Project>
