@@ -9,6 +9,7 @@
 class ABloque;
 class AEnemigo;
 class ABloqueLadrillo;
+class AFabricaBloques;
 
 UCLASS(minimalapi)
 class ABomberMan_012025GameMode : public AGameModeBase
@@ -18,12 +19,14 @@ class ABomberMan_012025GameMode : public AGameModeBase
 public:
 	ABomberMan_012025GameMode();
 
+	void tick(float DeltaTime);
+
 public:
 	virtual void BeginPlay() override;
 
 public:
 	// Declarar la posición del siguiente bloque
-	FVector posicionSiguienteBloque = FVector(1000.0f, 500.0f, 20.0f);
+	/*FVector posicionSiguienteBloque = FVector(1000.0f, 500.0f, 20.0f);
 
 	// Declarar un mapa de bloques como un array bidimensional
 	TArray<TArray<int32>> aMapaBloques = {
@@ -86,26 +89,33 @@ public:
 	float LargoBloque = 100.0f;
 	ABloque* BloqueActual = nullptr;
 	ACharacter* CharacterActual = nullptr;
-
+    
 	// Declarar un array de punteros a objetos de tipo Bloque
 	TArray<ABloque*> aBloques;
 	//declarar un array de punteros a objetos de tipo Enemigo
-	TArray<ACharacter*> aEnemigos;
+	TArray<AEnemigo*> aEnemigos;
 
 	FTimerHandle tHDestruirBloques;
-	FTimerHandle tHDestruirEnemigos;
-
+	//FTimerHandle tHDestruirEnemigos;
+	
 	//void SpawnBloques();
 	void SpawnBloque(FVector posicion, int32 tipoBloque);
+
 	//void DestruirBloque();
-
-	//void DestruirBloqueBurbuja();
-
+	void DestruirBloqueMadera();*/
 	//void DestruirEnemigos();
+	//void UbicarJugadorAleatorio();
+	//void GenerarMuroDeMadera();
+	//void SpawnBloques();
+	//void SpawnBloquesDerecha();
+	//AFabricaBloques* FabricaDeBloques;
+}; //HASTA AQUI ES TODOOOO.........
 
-	void UbicarJugadorAleatorio();
-}; //HASTA AQUI ES TODOOOO....
 
+
+
+
+//esto es del ingeniero
 /*
 for (AActor* bloque : aBloques)
 {

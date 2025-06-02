@@ -35,4 +35,23 @@ protected:
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 		bool bFromSweep, const FHitResult& SweepResult);
+
+protected:
+	// Dirección de movimiento del enemigo
+	FVector MovimientoDireccion;
+
+	// Velocidad de rotación del enemigo
+	float VelocidadRotacion;
+
+	// Verificar si hay un obstáculo en la dirección dada
+	bool HayObstaculoEnDireccion(FVector Direccion);
+
+	// Obtener la dirección hacia el personaje principal
+	FVector ObtenerDireccionHaciaPersonaje();
+
+	// Verificar si el personaje principal está mirando al enemigo
+	bool EstaSiendoMiradoPorPersonaje();
+
+	// Bandera para indicar si el enemigo está detenido
+	bool bEstaDetenido;
 };

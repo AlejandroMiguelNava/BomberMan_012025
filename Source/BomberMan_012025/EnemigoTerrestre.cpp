@@ -13,33 +13,14 @@ AEnemigoTerrestre::AEnemigoTerrestre()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	// acepta el evento de colisión
-	GetCapsuleComponent()->OnComponentHit.AddDynamic(this, &AEnemigoTerrestre::OnEnemigoHit);
-}
-
-void AEnemigoTerrestre::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-void AEnemigoTerrestre::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	// Movimiento simple en el eje X
-	AddMovementInput(FVector(1.0f, 0.0f, 0.0f), DireccionMovimiento * VelocidadMovimiento * DeltaTime);
-}
-
-// Cambia la dirección del enemigo al chocar con otro objeto
-void AEnemigoTerrestre::OnEnemigoHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, FVector NormalImpulse,
-	const FHitResult& Hit)
-{
-	// Ignorar si se choca consigo mismo
-	if (OtherActor && OtherActor != this && OtherComp)
+	if (MeshEnemigo)
 	{
-		// Cambiar dirección si choca con algo que no sea el jugador
-		DireccionMovimiento *= -1;
+		static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Rock_Sandstone.M_Rock_Sandstone'"));
+
+		if (MaterialBase.Succeeded())
+		{
+			MeshEnemigo->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
+		}
 	}
 }
+

@@ -14,7 +14,7 @@ class BOMBERMAN_012025_API ABomba : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABomba();
-
+    float TiempoTranscurrido;
 protected:
     // Componente de malla estática
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Componentes")
@@ -28,7 +28,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-
+    /*
     // Radio de explosión
     UPROPERTY(EditAnywhere, Category = "Bomba")
     float RadioExplosion = 300.0f;
@@ -48,5 +48,20 @@ private:
     // Función que realiza la explosión
     void Detonar();
 
-    FTimerHandle TimerHandleExplosion;
+    FTimerHandle TimerHandleExplosion;*/
+
+    // Escalas
+    UPROPERTY(EditAnywhere, Category = "Crecimiento")
+    FVector EscalaInicial;
+
+    UPROPERTY(EditAnywhere, Category = "Crecimiento")
+    FVector EscalaTope;
+
+    // Velocidad de crecimiento
+    UPROPERTY(EditAnywhere, Category = "Crecimiento")
+    float VelocidadCrecimiento;
+
+    // Bandera para habilitar crecimiento
+    UPROPERTY(EditAnywhere, Category = "Crecimiento")
+    bool bPuedeCrecer;
 };

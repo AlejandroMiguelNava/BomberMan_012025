@@ -24,18 +24,37 @@ ABomba::ABomba()
     {
         MallaBomba->SetStaticMesh(ObjetoMallaBloque.Object);
 
-        MallaBomba->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-        MallaBomba->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f));
+        //MallaBomba->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+       // MallaBomba->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f));
     }
-	
+    if (MallaBomba) 
+    {
+		static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Tech_Hex_Tile.M_Tech_Hex_Tile'"));
+		if (MaterialBase.Succeeded())
+		{
+			MallaBomba->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
+		}
+    }
+    // Valores por defecto
+    EscalaInicial = FVector(0.1f, 0.1f, 0.1f);
+    //EscalaTope = FVector(6.0f, 6.0f, 6.0f);
+    float RandEscala = FMath::FRandRange(3.0f, 6.0f);
+    EscalaTope = FVector(RandEscala, RandEscala, RandEscala);
+    VelocidadCrecimiento = FMath::FRandRange(0.1f, 0.5f);
+    bPuedeCrecer = false;
+    TiempoTranscurrido = 0.0f;
 }
 
 // Called when the game starts or when spawned
 void ABomba::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetActorScale3D(EscalaInicial); // Establecer la escala inicial
+	bPuedeCrecer = true;
+
 	// Iniciar el timer para detonar la bomba
-	GetWorld()->GetTimerManager().SetTimer(TimerHandleExplosion, this, &ABomba::Detonar, TiempoDetonacion, false);
+	//GetWorld()->GetTimerManager().SetTimer(TimerHandleExplosion, this, &ABomba::Detonar, TiempoDetonacion, false);
 }
 
 // Called every frame
@@ -43,8 +62,30 @@ void ABomba::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    if(bPuedeCrecer)
+    {
+       
+        TiempoTranscurrido += DeltaTime;
+        float VelocidadActual = VelocidadCrecimiento * FMath::FloorToInt(TiempoTranscurrido);
+
+        FVector EscalaActual = GetActorScale3D();
+        FVector NuevaEscala = EscalaActual + FVector(VelocidadActual * DeltaTime);
+
+        
+        if (NuevaEscala.X >= EscalaTope.X)
+           // NuevaEscala.Y >= EscalaTope.Y &&
+            //NuevaEscala.Z >= EscalaTope.Z)
+        {
+            Destroy();
+        }
+        else
+        {
+            SetActorScale3D(NuevaEscala);
+        }
+    }
 }
 
+/*
 void ABomba::Detonar()
 {
     FVector PosicionBomba = GetActorLocation();
@@ -69,4 +110,4 @@ void ABomba::Detonar()
 
     // Destruir la bomba después de explotar
     Destroy();
-}
+}*/

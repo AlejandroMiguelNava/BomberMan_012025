@@ -13,7 +13,7 @@ AEnemigoAcuatico::AEnemigoAcuatico()
 
 	if (MeshEnemigo)
 	{
-		static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Engine/VREditor/UI/ArrowMaterial.ArrowMaterial'"));
+		static ConstructorHelpers::FObjectFinder<UMaterial> MaterialBase(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Water_Ocean.M_Water_Ocean'"));
 
 		if (MaterialBase.Succeeded())
 		{

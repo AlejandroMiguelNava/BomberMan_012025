@@ -20,7 +20,9 @@ protected:
 
 private:
 	FRotator VelocidadRotacion; // Velocidad de rotación
-
+	float AnguloMaximoRotacion; // Ángulo máximo de rotación
+	//UPROPERTY()
+	//float AnguloAcumulado;
 public:
 	// Constructor
 	ABloqueFuego();	
