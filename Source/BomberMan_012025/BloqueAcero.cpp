@@ -18,4 +18,22 @@ ABloqueAcero::ABloqueAcero()
 
 void ABloqueAcero::BeginPlay()
 {
+	Super::BeginPlay();
+
+	Dureza = 100000000; // Valor de dureza para el bloque de acero
+}
+
+void ABloqueAcero::RecibirDanio(int32 Cantidad)
+{
+	// No se puede destreuir 
+	if (Cantidad >= Dureza)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Bloque de Acero ID %d: no se puede destruir con daño %d"), IDBloque, Cantidad);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Bloque de Acero ID %d: daño recibido %d, pero sigue intacto"), IDBloque, Cantidad);
+	}
+	
+
 }

@@ -20,6 +20,17 @@ AFabricaBloques::AFabricaBloques()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_ACERO, ABloqueAcero::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_CONCRETO, ABloqueConcreto::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_LADRILLO, ABloqueLadrillo::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_MADERA, ABloqueMadera::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_BURBUJA, ABloqueBurbuja::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_HIELO, ABloqueHielo::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_VIDRIO, ABloqueVidrio::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_SLINE, ABloqueSline::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_FUEGO, ABloqueFuego::StaticClass());
+	MapaClasesBloque.Add(ETipoBloque::BLOQUE_CESPED, ABloqueCesped::StaticClass());
+
 }
 
 // Called when the game starts or when spawned
@@ -36,7 +47,34 @@ void AFabricaBloques::Tick(float DeltaTime)
 
 }
 
-ABloque* AFabricaBloques::CrearBloque(FString tipoBloque, FVector posicion)
+ABloque* AFabricaBloques::CrearBloques(ETipoBloque TipoBloque, FVector Posicion)
+{
+	if (TSubclassOf<ABloque>* ClaseBloque = MapaClasesBloque.Find(TipoBloque))
+	{
+		ABloque* NuevoBloque = GetWorld()->SpawnActor<ABloque>(*ClaseBloque, Posicion, FRotator::ZeroRotator);
+		if (NuevoBloque)
+		{
+			NuevoBloque->IDBloque = ContadorID++;
+			NuevoBloque->Tipo = TipoBloque;
+			BloquesCreados.Add(NuevoBloque->IDBloque, NuevoBloque);
+		}
+		return NuevoBloque;
+	}
+	return nullptr;
+}
+
+void AFabricaBloques::EjecutarComportamientoGrupal(ETipoBloque Tipo)
+{
+	for (auto& Elem : BloquesCreados)
+	{
+		if (Elem.Value && Elem.Value->Tipo == Tipo)
+		{
+			Elem.Value->ComportamientoGrupal();
+		}
+	}
+}
+
+/*ABloque* AFabricaBloques::CrearBloque(FString tipoBloque, FVector posicion)
 {
 	if (tipoBloque.Equals("Acero")) {
 		return GetWorld()->SpawnActor<ABloqueAcero>
@@ -59,4 +97,4 @@ ABloque* AFabricaBloques::CrearBloque(FString tipoBloque, FVector posicion)
 			(ABloqueBurbuja::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
 	}
 	else return nullptr;
-}
+}*/

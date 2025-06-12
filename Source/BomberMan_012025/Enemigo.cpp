@@ -14,22 +14,24 @@ AEnemigo::AEnemigo()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	
+	// Crear el componente de malla estática para el enemigo
+	MeshEnemigo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshEnemigo"));
+	MeshEnemigo->SetupAttachment(RootComponent); // Adjuntar al componente raíz
 
-    // Crear el componente de malla estática para el enemigo
-    MeshEnemigo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshEnemigo"));
-    MeshEnemigo->SetupAttachment(RootComponent); // Adjuntar al componente raíz
-
-    // Cargar la malla estática del triángulo desde el contenido
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
-    if (MeshAsset.Succeeded())
-    {
-        MeshEnemigo->SetStaticMesh(MeshAsset.Object); // Asignar la malla al componente
-    }
+	// Cargar la malla estática del triángulo desde el contenido
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cone.Shape_Cone'"));
+	if (MeshAsset.Succeeded())
+	{
+		MeshEnemigo->SetStaticMesh(MeshAsset.Object); // Asignar la malla al componente
+	}
 
 	// para activar el evento de colisión
-    MeshEnemigo->SetGenerateOverlapEvents(true);
-    MeshEnemigo->OnComponentBeginOverlap.AddDynamic(this, &AEnemigo::OnOverlapBegin);
-    MeshEnemigo->SetCollisionProfileName(TEXT("OverlapAllDynamic")); // O ajusta según necesidad
+	MeshEnemigo->SetGenerateOverlapEvents(true);
+	MeshEnemigo->OnComponentBeginOverlap.AddDynamic(this, &AEnemigo::OnOverlapBegin);
+	MeshEnemigo->SetCollisionProfileName(TEXT("OverlapAllDynamic")); // O ajusta según necesidad
+
+	
 
 	// Inicializar la dirección de movimiento
 	MovimientoDireccion = FVector(1.0f, 0.0f, 0.0f); // Por ejemplo, moverse en el eje X positivo
@@ -54,7 +56,7 @@ void AEnemigo::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// Verificar si el personaje principal está mirando al enemigo
-	if (EstaSiendoMiradoPorPersonaje())
+	/*if (EstaSiendoMiradoPorPersonaje())
 	{
 		// Detener el movimiento del enemigo
 		bEstaDetenido = true;
@@ -64,7 +66,7 @@ void AEnemigo::Tick(float DeltaTime)
 	{
 		// Reanudar el movimiento del enemigo
 		bEstaDetenido = false;
-	}
+	}*/
 
 	if (bEstaDetenido)
 	{
@@ -83,7 +85,7 @@ void AEnemigo::Tick(float DeltaTime)
 	{
 		// Definir el punto de inicio y fin del LineTrace
 		FVector Inicio = GetActorLocation();
-		FVector Fin = Inicio + (MovimientoDireccion * 700.0f); // 100 unidades delante del enemigo
+		FVector Fin = Inicio + (MovimientoDireccion * 100.0f); // 100 unidades delante del enemigo
 
 		// Configurar los parámetros del LineTrace
 		FCollisionQueryParams Params;
@@ -138,7 +140,7 @@ bool AEnemigo::HayObstaculoEnDireccion(FVector Direccion)
 {
 	// Definir el punto de inicio y fin del LineTrace
 	FVector Inicio = GetActorLocation();
-	FVector Fin = Inicio + (Direccion * 700.0f); // 100 unidades en la dirección dada
+	FVector Fin = Inicio + (Direccion * 100.0f); // 100 unidades en la dirección dada
 
 	// Configurar los parámetros del LineTrace
 	FCollisionQueryParams Params;
@@ -149,7 +151,7 @@ bool AEnemigo::HayObstaculoEnDireccion(FVector Direccion)
 	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Inicio, Fin, ECC_Visibility, Params);
 
 	// Dibujar el LineTrace para depuración
-	DrawDebugLine(GetWorld(), Inicio, Fin, FColor::Red, false, 1.0f, 0, 1.0f);
+	//DrawDebugLine(GetWorld(), Inicio, Fin, FColor::Red, false, 1.0f, 0, 1.0f);
 
 	return bHit;
 }
@@ -171,7 +173,7 @@ FVector AEnemigo::ObtenerDireccionHaciaPersonaje()
 	return MovimientoDireccion;
 }
 
-bool AEnemigo::EstaSiendoMiradoPorPersonaje()
+/*bool AEnemigo::EstaSiendoMiradoPorPersonaje()
 {
 	// Obtener el personaje principal
 	ACharacter* PersonajePrincipal = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
@@ -197,7 +199,7 @@ bool AEnemigo::EstaSiendoMiradoPorPersonaje()
 	}
 
 	return false;
-}
+}*/
 
 // Called to bind functionality to input
 void AEnemigo::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

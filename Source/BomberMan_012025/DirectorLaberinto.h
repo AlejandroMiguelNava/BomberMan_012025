@@ -30,4 +30,5 @@ public:
 	void QuitarBloqueMadera(UWorld* Mundo);
 	void QuitarEnemigos(UWorld* Mundo);
 	void QuitarPuertas(UWorld* Mundo);
+	void QuitarTrampas(UWorld* Mundo);
 };

@@ -32,12 +32,14 @@ public:
 	virtual void CrearBloqueMadera(FVector Posicion, UWorld* Mundo) = 0;
 	virtual void CrearBloqueConcreto(FVector Posicion, UWorld* Mundo) = 0;
 	virtual void CrearBloqueBurbuja(FVector Posicion, UWorld* Mundo) = 0;
-	//virtual void CrearPuerta(FVector Posicion, UWorld* Mundo) = 0;
+	virtual void CrearPuertaTrampa(FVector Posicion, UWorld* Mundo) = 0;
 	virtual void CrearEnemigo(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearEsenario(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearCamino(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearMuro(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearTampas(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearCapsulas(FVector Posicion, UWorld* Mundo) = 0;
+	virtual void CrearTrampaEspinas(FVector Posicion, UWorld* Mundo) = 0;
+	virtual void CrearTrampaBomba(FVector Posicion, UWorld* Mundo) = 0;
 
 };

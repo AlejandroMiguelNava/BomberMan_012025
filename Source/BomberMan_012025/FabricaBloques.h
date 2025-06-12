@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TipoBloque.h"
 #include "FabricaBloques.generated.h"
 
 class ABloque;
@@ -25,5 +26,17 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	ABloque* CrearBloque(FString tipoBloque, FVector posicion);
+	UPROPERTY(EditAnywhere)
+	TMap<int32, ABloque*> BloquesCreados;
+
+	UPROPERTY(EditAnywhere)
+	TMap<ETipoBloque, TSubclassOf<ABloque>> MapaClasesBloque;
+
+	int32 ContadorID = 0;
+
+	//ABloque* CrearBloque(FString tipoBloque, FVector posicion);
+	ABloque* CrearBloques(ETipoBloque TipoBloque, FVector Posicion);
+
+	UFUNCTION(BlueprintCallable)
+	void EjecutarComportamientoGrupal(ETipoBloque Tipo);
 };

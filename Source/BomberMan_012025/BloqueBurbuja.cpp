@@ -15,8 +15,9 @@ ABloqueBurbuja::ABloqueBurbuja()
         }
     }
 }
-    void ABloqueBurbuja::BeginPlay()
-    {
+ void ABloqueBurbuja::BeginPlay()
+ {
         
 		Super::BeginPlay();
-    }
+ }
+

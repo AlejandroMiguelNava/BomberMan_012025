@@ -50,7 +50,7 @@ protected:
 	FVector ObtenerDireccionHaciaPersonaje();
 
 	// Verificar si el personaje principal está mirando al enemigo
-	bool EstaSiendoMiradoPorPersonaje();
+	//bool EstaSiendoMiradoPorPersonaje();
 
 	// Bandera para indicar si el enemigo está detenido
 	bool bEstaDetenido;

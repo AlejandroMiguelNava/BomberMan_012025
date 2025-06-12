@@ -10,7 +10,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "InputMappingContext.h"
 #include <Kismet/GameplayStatics.h>//este include es para que el pueda quedarse paralizado
+#include "PuertaFacade.h"
+#include "EngineUtils.h" // Ensure TActorIterator is included
 
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -54,6 +57,7 @@ ABomberMan_012025Character::ABomberMan_012025Character()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,15 +91,14 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::Look);
+
+		// Colocar Bomba
+		EnhancedInputComponent->BindAction(ColocarBombation, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::ColocarBomba);
 	}
 	else
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
-
-	/* para colocar bomba con el teclado
-	PlayerInputComponent->BindAction("ColocarBomba", IE_Pressed, this, &ABomberMan_012025Character::ColocarBomba);*/
-
 }
 
 void ABomberMan_012025Character::Move(const FInputActionValue& Value)
@@ -134,6 +137,15 @@ void ABomberMan_012025Character::Look(const FInputActionValue& Value)
 	}
 }
 
+void ABomberMan_012025Character::BeginPlay()
+{
+	Super::BeginPlay();
+
+    Hp = 10;
+	//RecibirDanio(); // Inicializar el HP del jugador
+	
+}
+
 //funcion para paralizar al jugador
 void ABomberMan_012025Character::Paralizar(float Tiempo)
 {
@@ -146,4 +158,55 @@ void ABomberMan_012025Character::Paralizar(float Tiempo)
 		{
 			EnableInput(UGameplayStatics::GetPlayerController(this, 0));
 		}, Tiempo, false);
+}
+void ABomberMan_012025Character::ColocarBomba()
+{
+	if (ClaseBomba)
+	{
+		// Obtener la posición del actor (jugador) y ajustar a la cuadrícula
+
+		FVector PosicionBomba = GetActorLocation();
+		PosicionBomba.X = FMath::GridSnap(PosicionBomba.X, 100.0f);  // Ajuste a la cuadrícula (opcional)
+		PosicionBomba.Y = FMath::GridSnap(PosicionBomba.Y, 100.0f);
+
+		FActorSpawnParameters Parametros;
+		Parametros.Owner = this;
+
+		GetWorld()->SpawnActor<ABomba>(ClaseBomba, PosicionBomba, FRotator::ZeroRotator, Parametros);
+		UE_LOG(LogTemp, Warning, TEXT("Bomba colocada en la posición: %s"), *PosicionBomba.ToString());
+
+	}
+}
+void ABomberMan_012025Character::RecibirDanio(int32 Cantidad)
+{
+	Hp -= Cantidad;
+	if (Hp <= 0)
+	{
+		// Mostrar mensaje en pantalla
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("¡Has perdido!"));
+
+		// Detener el tiempo
+		//UGameplayStatics::SetGamePaused(GetWorld(), true);
+		
+		UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Quit, false);
+	}
+}
+
+void ABomberMan_012025Character::Entrar()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Entraste en la puerta"));
+
+	// crear el actor facade
+	APuertaFacade* Facade = GetWorld()->SpawnActor<APuertaFacade>();
+
+	if (Facade)
+	{
+		// Llamar al método de la fachada
+		Facade->ActivarTrampas();
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("No se pudo crear la fachada de la puerta"));
+	}
+	
 }

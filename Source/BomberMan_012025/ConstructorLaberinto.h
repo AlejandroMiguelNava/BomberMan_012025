@@ -29,10 +29,12 @@ public:
 	virtual void CrearBloqueMadera(FVector Posicion, UWorld* Mundo) override;
 	virtual void CrearBloqueConcreto(FVector Posicion, UWorld* Mundo) override;
 	virtual void CrearBloqueBurbuja(FVector Posicion, UWorld* Mundo) override;
-	//virtual void CrearPuerta(FVector Posicion, UWorld* Mundo) override;
+	virtual void CrearPuertaTrampa(FVector Posicion, UWorld* Mundo) override;
 	virtual void CrearEnemigo(FVector Posicion, UWorld* Mundo) override;
 	//virtual void CrearCamino(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearMuro(FVector Posicion, UWorld* Mundo) = 0;
 	//virtual void CrearLaberinto(UWorld* Mundo) = 0;
+	virtual void CrearTrampaEspinas(FVector Posicion, UWorld* Mundo) override;
+	virtual void CrearTrampaBomba(FVector Posicion, UWorld* Mundo) override;
 
 };

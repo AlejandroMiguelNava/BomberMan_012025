@@ -20,6 +20,10 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Componentes")
     UStaticMeshComponent* MallaBomba;
 
+	// Efecto de explosión
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Componentes")
+	UParticleSystemComponent* EfectoExplosion;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -64,4 +68,12 @@ private:
     // Bandera para habilitar crecimiento
     UPROPERTY(EditAnywhere, Category = "Crecimiento")
     bool bPuedeCrecer;
+
+	// Función para explotar la bomba
+	void Explotar();
+
+    //radio de explocion
+	UPROPERTY(EditAnywhere, Category = "Bomba")
+	float RadioExplosion = 300.0f;
+ 
 };

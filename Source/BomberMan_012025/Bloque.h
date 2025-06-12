@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TipoBloque.h"
 #include "Bloque.generated.h"
 
 class UStaticMeshComponent;
@@ -33,4 +34,15 @@ public:
 	float FloatSpeed;
 	float RotationSpeed;
 	bool bPuedeMoverse;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ETipoBloque Tipo;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 IDBloque;
+
+	int32 Dureza;
+
+	virtual void RecibirDanio(int32 Cantidad);
+
+	virtual void ComportamientoGrupal();
 };

@@ -21,7 +21,7 @@ ABloque::ABloque()
 		MallaBloque->SetStaticMesh(ObjetoMallaBloque.Object);
 
 		MallaBloque->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-		MallaBloque->SetRelativeScale3D(FVector(1.0f, 1.0f, 3.0f));
+		MallaBloque->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
 	}
 
 	FloatSpeed = 5.0f;
@@ -35,6 +35,7 @@ void ABloque::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// para que reciba daño
 }
 
 // Called every frame
@@ -58,4 +59,18 @@ void ABloque::Tick(float DeltaTime)
 
 		SetActorLocationAndRotation(NewLocation, NewRotation);
 	}*/
+}
+void ABloque::RecibirDanio(int32 Cantidad)
+{
+	Dureza -= Cantidad;
+	if (Dureza <= 0)
+	{
+		// Destruir bloque
+		Destroy();
+	}
+}
+
+void ABloque::ComportamientoGrupal()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grupo con bloques del tipo %d: comportamiento grupal base"), (int32)Tipo);
 }

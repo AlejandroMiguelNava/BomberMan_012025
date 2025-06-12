@@ -7,6 +7,7 @@
 #include "ConstructorLaberinto.h"
 #include "DirectorEjercito.h"
 #include "ConstruirEjercito.h"
+#include "PuertaFacade.h"
 #include "Bloque.h"
 #include "BloqueAcero.h"
 #include "BloqueConcreto.h"
@@ -45,6 +46,13 @@ ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 void ABomberMan_012025GameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Obtener el personaje del jugador
+	ABomberMan_012025Character* PlayerCharacter = Cast<ABomberMan_012025Character>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->ColocarBomba(); // Llamar a la función directamente si es necesario
+	}
 
 	/*GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("Bloque Spawning"));
 
@@ -148,11 +156,11 @@ void ABomberMan_012025GameMode::BeginPlay()
 
 	Director->ConstruirLaberinto(Constructor, GetWorld());
 	///Director->QuitarBloqueAcero(GetWorld());
-	Director->QuitarBloqueLadrillo(GetWorld());
-	Director->QuitarBloqueMadera(GetWorld());
+	//Director->QuitarBloqueLadrillo(GetWorld());
+	//Director->QuitarBloqueMadera(GetWorld());
 	//Director->QuitarEnemigos(GetWorld());
 	//Director->QuitarPuertas(GetWorld());
-
+	Director->QuitarTrampas(GetWorld());
 
 	// Crear el Ejercito
 	AConstruirEjercito* ConstructorE = GetWorld()->SpawnActor<AConstruirEjercito>();
@@ -160,6 +168,26 @@ void ABomberMan_012025GameMode::BeginPlay()
 	ADirectorEjercito* DirectorE = GetWorld()->SpawnActor<ADirectorEjercito>();
 
 	DirectorE->ConstruirEjercito(ConstructorE, GetWorld());
+	
+
+	GenerarBloques();
+}
+
+void ABomberMan_012025GameMode::GenerarBloques()
+{
+	ABloqueSline* Prototipo = GetWorld()->SpawnActor<ABloqueSline>(ABloqueSline::StaticClass(), FVector(2200, 1300, 0), FRotator::ZeroRotator);
+
+	if (Prototipo)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("Clones del Bloque Madera creados"));
+
+		ABloqueSline* Clon1 = Cast<ABloqueSline>(Prototipo->Clone());
+		if (Clon1) Clon1->SetTransform(FVector(2200, 900, 0), FRotator::ZeroRotator);
+
+
+		ABloqueSline* Clon2 = Cast<ABloqueSline>(Prototipo->Clone());
+		if (Clon2) Clon2->SetTransform(FVector(2200, 1100, 0), FRotator::ZeroRotator);
+	}
 }
 
 /*void ABomberMan_012025GameMode::DestruirBloque()

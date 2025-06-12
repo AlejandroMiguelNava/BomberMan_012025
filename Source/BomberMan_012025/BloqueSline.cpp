@@ -14,3 +14,43 @@ ABloqueSline::ABloqueSline()
 		}
 	}
 }
+
+void ABloqueSline::SetTransform(FVector NuevaPosicion, FRotator NuevaRotacion)
+{
+    SetActorLocation(NuevaPosicion);
+    SetActorRotation(NuevaRotacion);
+}
+
+IIPrototipe* ABloqueSline::Clone() const
+{
+    UWorld* Mundo = GetWorld();
+    if (Mundo)
+    {
+        ABloqueSline* Clon = Mundo->SpawnActor<ABloqueSline>(GetClass(), GetActorLocation(), GetActorRotation());
+        if (Clon)
+        {
+            Clon->CopiarEstadoDesde(this);
+        }
+        return Clon;
+    }
+    return nullptr;
+}
+
+void ABloqueSline::CopiarEstadoDesde(const ABloqueSline* OtroBloque)
+{
+    if (!OtroBloque || OtroBloque == this) return;
+
+    // Copiar posición y rotación
+    SetActorLocation(OtroBloque->GetActorLocation());
+    SetActorRotation(OtroBloque->GetActorRotation());
+
+    // Copiar malla
+    if (OtroBloque->MallaBloque && MallaBloque)
+    {
+        MallaBloque->SetStaticMesh(OtroBloque->MallaBloque->GetStaticMesh());
+        MallaBloque->SetMaterial(0, OtroBloque->MallaBloque->GetMaterial(0));
+        MallaBloque->SetWorldScale3D(OtroBloque->MallaBloque->GetComponentScale());
+    }
+
+    // Copiar propiedades personalizadas
+}

@@ -10,13 +10,18 @@
 #include "BloqueConcreto.h"
 #include "BloqueBurbuja.h"
 #include "Enemigo.h"
+#include "FabricaBloques.h"
+#include "PuertaTrampa.h"
+#include "Trampas.h"
+#include "TrampaBomba.h"
+#include "TrampaEspinas.h"
 #include "Kismet/KismetMathLibrary.h"
 
 
 // Constructor
 void AConstructorLaberinto::Construir(UWorld* Mundo)
 {
-	// Crear el laberinto con switch
+	/*/ Crear el laberinto con switch
 	Laberinto = Mundo->SpawnActor<ALaberinto>();
 
 	AFabricaBloques* Fabrica = Mundo->SpawnActor<AFabricaBloques>();
@@ -47,6 +52,36 @@ void AConstructorLaberinto::Construir(UWorld* Mundo)
 
 			Fabrica->CrearBloque(tipoBloque, posicion);
 		}
+	}*/
+	Laberinto = Mundo->SpawnActor<ALaberinto>();
+	AFabricaBloques* Fabrica = Mundo->SpawnActor<AFabricaBloques>();
+
+	FVector OffsetLaberinto = FVector(2.0f, 2.0f, 0.0f);
+
+	int32 ContadorID = 0;
+
+	for (int i = 0; i < Laberinto->aMapaBloques.Num(); i++)
+	{
+		for (int j = 0; j < Laberinto->aMapaBloques[i].Num(); j++)
+		{
+			int tipo = Laberinto->aMapaBloques[i][j];
+			FVector posicion = OffsetLaberinto + FVector(i * 100.0f, j * 100.0f, 0.0f);
+
+			ETipoBloque TipoBloque;
+
+			switch (tipo)
+			{
+			case 1: TipoBloque = ETipoBloque::BLOQUE_ACERO; break;
+			case 2: TipoBloque = ETipoBloque::BLOQUE_LADRILLO; break;
+			case 3: TipoBloque = ETipoBloque::BLOQUE_MADERA; break;
+			case 4: TipoBloque = ETipoBloque::BLOQUE_CONCRETO; break;
+			case 5: TipoBloque = ETipoBloque::BLOQUE_BURBUJA; break;
+			default: continue;
+			}
+
+			Fabrica->CrearBloques(TipoBloque, posicion);
+			ContadorID++;
+		}
 	}
 
 	// Crear los enemigos del laberinto con switch
@@ -61,6 +96,37 @@ void AConstructorLaberinto::Construir(UWorld* Mundo)
 				break;
 			}
 
+		}
+	}
+
+	// Crear las puertas del laberinto con switch
+	for (int i = 0; i < Laberinto->aMapaPuertas.Num(); i++)
+	{
+		for (int j = 0; j < Laberinto->aMapaPuertas[i].Num(); j++)
+		{
+			switch (Laberinto->aMapaPuertas[i][j])
+			{
+			case 1:
+				Mundo->SpawnActor<APuertaTrampa>(FVector(i * 100.0f, j * 100.0f, 0.0f), FRotator::ZeroRotator);
+				break;
+			}
+		}
+	}
+
+	//crear las trampas del laberinto con switch
+	for (int i = 0; i < Laberinto->aMapaTrampas.Num(); i++)
+	{
+		for (int j = 0; j < Laberinto->aMapaTrampas[i].Num(); j++)
+		{
+			switch (Laberinto->aMapaTrampas[i][j])
+			{
+			case 1:
+				Mundo->SpawnActor<ATrampaEspinas>(FVector(i * 100.0f, j * 100.0f, 0.0f), FRotator::ZeroRotator);
+				break;
+			case 2:
+				Mundo->SpawnActor<ATrampaBomba>(FVector(i * 100.0f, j * 100.0f, 0.0f), FRotator::ZeroRotator);
+				break;
+			}
 		}
 	}
 }
@@ -127,5 +193,35 @@ void AConstructorLaberinto::CrearEnemigo(FVector Posicion, UWorld* Mundo)
 	{
 		NuevoEnemigo->SetActorLocation(Posicion);
 		Laberinto->AgregarEnemigo(NuevoEnemigo);
+	}
+}
+
+void AConstructorLaberinto::CrearPuertaTrampa(FVector Posicion, UWorld* Mundo)
+{
+	APuertaTrampa* NuevaPuerta = Mundo->SpawnActor<APuertaTrampa>(Posicion, FRotator::ZeroRotator);
+	if (NuevaPuerta)
+	{
+		NuevaPuerta->SetActorLocation(Posicion);
+		Laberinto->AgregarPuerta(NuevaPuerta);
+	}
+}
+
+void AConstructorLaberinto::CrearTrampaEspinas(FVector Posicion, UWorld* Mundo)
+{
+	ATrampaEspinas* NuevaTrampa = Mundo->SpawnActor<ATrampaEspinas>(Posicion, FRotator::ZeroRotator);
+	if (NuevaTrampa)
+	{
+		NuevaTrampa->SetActorLocation(Posicion);
+		Laberinto->AgregarTrampa(NuevaTrampa);
+	}
+}
+
+void AConstructorLaberinto::CrearTrampaBomba(FVector Posicion, UWorld* Mundo)
+{
+	ATrampaBomba* NuevaTrampa = Mundo->SpawnActor<ATrampaBomba>(Posicion, FRotator::ZeroRotator);
+	if (NuevaTrampa)
+	{
+		NuevaTrampa->SetActorLocation(Posicion);
+		Laberinto->AgregarTrampa(NuevaTrampa);
 	}
 }

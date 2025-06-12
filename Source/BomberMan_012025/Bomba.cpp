@@ -5,7 +5,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
+#include "FabricaBloques.h"
 #include "Components/StaticMeshComponent.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "ConstructorLaberinto.h"
 
 // Sets default values
 ABomba::ABomba()
@@ -35,14 +38,26 @@ ABomba::ABomba()
 			MallaBomba->SetMaterial(0, MaterialBase.Object); // Asignar el material al slot 0
 		}
     }
+	// Componente de partícula para el efecto de explosión
+	EfectoExplosion = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EfectoExplosion"));
+	EfectoExplosion->SetupAttachment(MallaBomba); // Adjuntar al componente de malla de la bomba
+	EfectoExplosion->bAutoActivate = false; // No activar automáticamente, se activará al explotar
+	// Cargar el efecto de explosión desde el contenido del juego
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> EfectoExplosionAsset(TEXT("/Game/StarterContent/Particles/P_Explosion.P_Explosion"));
+	if (EfectoExplosionAsset.Succeeded())
+	{
+		EfectoExplosion->SetTemplate(EfectoExplosionAsset.Object); // Asignar el efecto de explosión
+	}
+
     // Valores por defecto
-    EscalaInicial = FVector(0.1f, 0.1f, 0.1f);
+    EscalaInicial = FVector(0.5f, 0.5f, 0.5f);
     //EscalaTope = FVector(6.0f, 6.0f, 6.0f);
-    float RandEscala = FMath::FRandRange(3.0f, 6.0f);
+    float RandEscala = FMath::FRandRange(0.5f, 2.5f);
     EscalaTope = FVector(RandEscala, RandEscala, RandEscala);
     VelocidadCrecimiento = FMath::FRandRange(0.1f, 0.5f);
     bPuedeCrecer = false;
     TiempoTranscurrido = 0.0f;
+
 }
 
 // Called when the game starts or when spawned
@@ -52,7 +67,8 @@ void ABomba::BeginPlay()
 
 	SetActorScale3D(EscalaInicial); // Establecer la escala inicial
 	bPuedeCrecer = true;
-
+	// Obtener el mundo y verificar si el efecto de explosión se ha cargado correctamente
+    
 	// Iniciar el timer para detonar la bomba
 	//GetWorld()->GetTimerManager().SetTimer(TimerHandleExplosion, this, &ABomba::Detonar, TiempoDetonacion, false);
 }
@@ -73,16 +89,39 @@ void ABomba::Tick(float DeltaTime)
 
         
         if (NuevaEscala.X >= EscalaTope.X)
-           // NuevaEscala.Y >= EscalaTope.Y &&
-            //NuevaEscala.Z >= EscalaTope.Z)
         {
+            Explotar();
             Destroy();
         }
         else
         {
             SetActorScale3D(NuevaEscala);
         }
+
     }
+}
+
+void ABomba::Explotar()  
+{  
+    int32 Danio = 10;
+    //para hacer dañoa todos los actores a su alcanse
+	FVector PosicionBomba = GetActorLocation();
+	TArray<AActor*> ActoresEnAlcance;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloque::StaticClass(), ActoresEnAlcance);
+	for (AActor* Actor : ActoresEnAlcance)
+	{
+		ABloque* Bloque = Cast<ABloque>(Actor);
+		if (Bloque && FVector::Dist(Bloque->GetActorLocation(), PosicionBomba) <= RadioExplosion)
+		{
+			Bloque->RecibirDanio(Danio);
+		}
+	}
+    //dar el efecto de explocion
+    if (EfectoExplosion)
+    {
+        UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), EfectoExplosion->Template, PosicionBomba);
+    }
+
 }
 
 /*

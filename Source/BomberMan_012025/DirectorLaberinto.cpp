@@ -7,8 +7,11 @@
 #include "BloqueLadrillo.h"
 #include "BloqueMadera.h"
 #include "Enemigo.h"
+#include "Laberinto.h"
 #include "Constructorlaberinto.h"
 #include <Kismet/GameplayStatics.h>
+#include "TrampaEspinas.h"
+#include "TrampaBomba.h"
 
 // Sets default values
 ADirectorLaberinto::ADirectorLaberinto()
@@ -88,6 +91,32 @@ void ADirectorLaberinto::QuitarEnemigos(UWorld* Mundo)
 		if (Enemigo)
 		{
 			Enemigo->Destroy();
+		}
+	}
+}
+void ADirectorLaberinto::QuitarPuertas(UWorld* Mundo)
+{
+	// Implementar la lógica para quitar puertas si es necesario
+}
+
+void ADirectorLaberinto::QuitarTrampas(UWorld* Mundo)
+{
+	TArray<AActor*> TrampasEspinas;
+	UGameplayStatics::GetAllActorsOfClass(Mundo, ATrampaEspinas::StaticClass(), TrampasEspinas);
+	for (AActor* Trampa : TrampasEspinas)
+	{
+		if (Trampa)
+		{
+			Trampa->Destroy();
+		}
+	}
+	TArray<AActor*> TrampasBomba;
+	UGameplayStatics::GetAllActorsOfClass(Mundo, ATrampaBomba::StaticClass(), TrampasBomba);
+	for (AActor* Trampa : TrampasBomba)
+	{
+		if (Trampa)
+		{
+			Trampa->Destroy();
 		}
 	}
 }

@@ -26,6 +26,7 @@ void ABloqueMadera::BeginPlay()
 {
     Super::BeginPlay();
     PosicionInicial = GetActorLocation(); // Guardar la posición inicial
+    Dureza = 10; // resisterncia
 }
 
 void ABloqueMadera::Tick(float DeltaTime)
@@ -38,3 +39,4 @@ void ABloqueMadera::Tick(float DeltaTime)
 
     SetActorLocation(NuevaPosicion);
 }
+

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Bomba.h"
 #include "BomberMan_012025Character.generated.h"
 
 class USpringArmComponent;
@@ -44,6 +45,11 @@ class ABomberMan_012025Character : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Colocar bomba imput action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ColocarBombation;
+
+
 public:
 	ABomberMan_012025Character();
 	
@@ -58,6 +64,7 @@ protected:
 			
 
 protected:
+	virtual void BeginPlay() override;
 
 	virtual void NotifyControllerChanged() override;
 
@@ -73,8 +80,21 @@ public:
 	// Colocar bomba con una tecla
 	void ColocarBomba();
 
+	// Clase de bomba que se va a instanciar
+	UPROPERTY(EditAnywhere, Category = "Bomba")
+    TSubclassOf<ABomba> ClaseBomba;
+
+	int32 Hp;
+
 	// para detectar la colision con el enemigo
 	UFUNCTION(BlueprintCallable)
 	void Paralizar(float Tiempo);
+
+	void RecibirDanio(int32 Cantidad);
+
+	void Entrar();
+
+	UPROPERTY()
+	class APuertaFacade* PuertaFacadeInstance;
 };
 
