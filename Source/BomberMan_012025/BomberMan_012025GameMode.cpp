@@ -167,28 +167,42 @@ void ABomberMan_012025GameMode::BeginPlay()
 	// Crear el director del Ejercito
 	ADirectorEjercito* DirectorE = GetWorld()->SpawnActor<ADirectorEjercito>();
 
-	DirectorE->ConstruirEjercito(ConstructorE, GetWorld());
-	
+	//DirectorE->ConstruirEjercito(ConstructorE, GetWorld());
+	//DirectorE->QuitarLider(GetWorld());
 
-	GenerarBloques();
+	//GenerarBloques();
 }
 
-void ABomberMan_012025GameMode::GenerarBloques()
+/*void ABomberMan_012025GameMode::GenerarBloques()
 {
-	ABloqueSline* Prototipo = GetWorld()->SpawnActor<ABloqueSline>(ABloqueSline::StaticClass(), FVector(2200, 1300, 0), FRotator::ZeroRotator);
-
-	if (Prototipo)
+	ABloqueSline* PrototipoSline = GetWorld()->SpawnActor<ABloqueSline>(ABloqueSline::StaticClass(), FVector(2200, 1300, 0), FRotator::ZeroRotator);
+	if (PrototipoSline)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("Clones del Bloque Madera creados"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("Clones del Bloque Sline creados"));
 
-		ABloqueSline* Clon1 = Cast<ABloqueSline>(Prototipo->Clone());
+		ABloqueSline* Clon1 = Cast<ABloqueSline>(PrototipoSline->Clone());
 		if (Clon1) Clon1->SetTransform(FVector(2200, 900, 0), FRotator::ZeroRotator);
 
 
-		ABloqueSline* Clon2 = Cast<ABloqueSline>(Prototipo->Clone());
+		ABloqueSline* Clon2 = Cast<ABloqueSline>(PrototipoSline->Clone());
 		if (Clon2) Clon2->SetTransform(FVector(2200, 1100, 0), FRotator::ZeroRotator);
 	}
-}
+
+	ABloqueMadera* PrototipoMadera = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), FVector(1800, 1300, 0), FRotator::ZeroRotator);
+	if (PrototipoMadera)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("Clones del Bloque Madera creados"));
+
+		ABloqueMadera* Clon1 = Cast<ABloqueMadera>(PrototipoMadera->Clone());
+		if (Clon1) {
+			Clon1->SetTransform(FVector(1800, 900, 0), FRotator::ZeroRotator);
+			Clon1->GetActorLocation();
+		}
+
+		ABloqueMadera* Clon2 = Cast<ABloqueMadera>(PrototipoMadera->Clone());
+		if (Clon2) Clon2->SetTransform(FVector(1800, 1100, 0), FRotator::ZeroRotator);
+	}
+}*/
 
 /*void ABomberMan_012025GameMode::DestruirBloque()
 {

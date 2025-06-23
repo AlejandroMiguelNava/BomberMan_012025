@@ -47,7 +47,7 @@ class ABomberMan_012025Character : public ACharacter
 
 	/** Colocar bomba imput action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* ColocarBombation;
+	UInputAction* ColocarBombaAction;
 
 
 public:
@@ -65,6 +65,7 @@ protected:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 	virtual void NotifyControllerChanged() override;
 
@@ -78,6 +79,7 @@ public:
 
 public:
 	// Colocar bomba con una tecla
+	UFUNCTION()
 	void ColocarBomba();
 
 	// Clase de bomba que se va a instanciar
@@ -94,7 +96,14 @@ public:
 
 	void Entrar();
 
+	void EntrarPV();
+
 	UPROPERTY()
 	class APuertaFacade* PuertaFacadeInstance;
+
+	// para el Strategy
+	float TiempoJugado = 0.0f;
+	int32 TotalKills = 0;
+	void SumarMuerte();
 };
 

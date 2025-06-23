@@ -4,36 +4,31 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PuertaFacade.generated.h"
-
-class ATrampas;
-class APuertaTrampa;
-class ATrampaBomba;
+#include "ScoreSystem.generated.h"
+class IIScoreStrategy;
 UCLASS()
-class BOMBERMAN_012025_API APuertaFacade : public AActor
+class BOMBERMAN_012025_API AScoreSystem : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APuertaFacade();
+	AScoreSystem();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Puerta")
-	APuertaTrampa* PuertaTrampa;*/
-
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 private:
-
-	TArray<ATrampas*> Trampas;
-
+	IIScoreStrategy* ScoreStrategy;
+	UPROPERTY()
+	UObject* EstrategiaGuardada; // Guardamos la estrategia para que no la recoja el GC
 public:
-	void ActivarTrampas();
+	void SetStrategy(IIScoreStrategy* NewStrategy);
+	int32 GetScore(float TimeTaken, int32 EnemiesKilled) const;
+
 };

@@ -19,5 +19,6 @@ ABloqueBurbuja::ABloqueBurbuja()
  {
         
 		Super::BeginPlay();
+        Dureza = 0;
  }
 

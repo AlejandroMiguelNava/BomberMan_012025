@@ -21,14 +21,15 @@ ABloqueLadrillo::ABloqueLadrillo()
     // Configuración del actor
     PrimaryActorTick.bCanEverTick = true; // Habilitar el Tick()
 
-    AmplitudMovimiento = 100.0f; // Distancia que se mueve a la izquierda y derecha
-    VelocidadMovimiento = 2.0f; // Velocidad del movimiento
+    AmplitudMovimiento = 50.0f; // Distancia que se mueve a la izquierda y derecha
+    VelocidadMovimiento = 1.0f; // Velocidad del movimiento
 }
 
 void ABloqueLadrillo::BeginPlay()
 {
     Super::BeginPlay();
     PosicionInicial = GetActorLocation(); // Guardar la posición inicial
+    Dureza = 20;
 }
 
 void ABloqueLadrillo::Tick(float DeltaTime)

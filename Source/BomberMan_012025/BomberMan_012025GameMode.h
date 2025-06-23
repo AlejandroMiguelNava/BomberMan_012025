@@ -26,7 +26,7 @@ public:
 
 public:
 
-	void GenerarBloques();
+	//void GenerarBloques();
 
 	// Declarar la posición del siguiente bloque
 	/*FVector posicionSiguienteBloque = FVector(1000.0f, 500.0f, 20.0f);

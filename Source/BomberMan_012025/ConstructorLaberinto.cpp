@@ -11,7 +11,9 @@
 #include "BloqueBurbuja.h"
 #include "Enemigo.h"
 #include "FabricaBloques.h"
+#include "FabricaEnemigos.h"
 #include "PuertaTrampa.h"
+#include "PuertaVictoria.h"
 #include "Trampas.h"
 #include "TrampaBomba.h"
 #include "TrampaEspinas.h"
@@ -56,7 +58,7 @@ void AConstructorLaberinto::Construir(UWorld* Mundo)
 	Laberinto = Mundo->SpawnActor<ALaberinto>();
 	AFabricaBloques* Fabrica = Mundo->SpawnActor<AFabricaBloques>();
 
-	FVector OffsetLaberinto = FVector(2.0f, 2.0f, 0.0f);
+	FVector OffsetLaberinto = FVector(40.0f, 40.0f, 0.0f);
 
 	int32 ContadorID = 0;
 
@@ -84,17 +86,31 @@ void AConstructorLaberinto::Construir(UWorld* Mundo)
 		}
 	}
 
-	// Crear los enemigos del laberinto con switch
+	// Crear los enemigos del laberinto con switch y la fabrica de enmigos
+	AFabricaEnemigos* FabricaE = Mundo->SpawnActor<AFabricaEnemigos>();
+
 	for (int i = 0; i < Laberinto->aMapaEnemigos.Num(); i++)
 	{
 		for (int j = 0; j < Laberinto->aMapaEnemigos[i].Num(); j++)
 		{
-			switch (Laberinto->aMapaEnemigos[i][j])
+			int tipo = Laberinto->aMapaEnemigos[i][j];
+
+			// Aplica desplazamiento para mover todo el laberinto
+			FVector posicion = OffsetLaberinto + FVector(i * 100.0f, j * 100.0f, 0.0f);
+
+			FString tipoEnemigo;
+
+			switch (tipo)
 			{
-			case 1:
-				CrearEnemigo(FVector(i * 100.0f, j * 100.0f, 0.0f), Mundo);
-				break;
+			case 1: tipoEnemigo = "Terrestre"; break;
+			case 2: tipoEnemigo = "Aereo"; break;
+			case 3: tipoEnemigo = "Acuatico"; break;
+			case 4: tipoEnemigo = "Subterraneo"; break;
+			case 5: tipoEnemigo = "Lider"; break;
+			default: continue;
 			}
+
+			FabricaE->CrearEnemigo(tipoEnemigo, posicion);
 
 		}
 	}
@@ -108,6 +124,9 @@ void AConstructorLaberinto::Construir(UWorld* Mundo)
 			{
 			case 1:
 				Mundo->SpawnActor<APuertaTrampa>(FVector(i * 100.0f, j * 100.0f, 0.0f), FRotator::ZeroRotator);
+				break;
+			case 2:
+				Mundo->SpawnActor<APuertaVictoria>(FVector(i * 100.0f, j * 100.0f, 0.0f), FRotator::ZeroRotator);
 				break;
 			}
 		}

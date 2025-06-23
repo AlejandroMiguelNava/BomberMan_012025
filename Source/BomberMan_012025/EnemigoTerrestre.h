@@ -18,4 +18,7 @@ public:
 	// Constructor por defecto
 	AEnemigoTerrestre();
 
+protected:
+
+	virtual void BeginPlay() override;
 };

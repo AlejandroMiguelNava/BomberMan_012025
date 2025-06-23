@@ -8,6 +8,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "BomberMan_012025Character.h"
+#include "EngineUtils.h"
 
 // Sets default values
 AEnemigo::AEnemigo()
@@ -24,6 +25,8 @@ AEnemigo::AEnemigo()
 	if (MeshAsset.Succeeded())
 	{
 		MeshEnemigo->SetStaticMesh(MeshAsset.Object); // Asignar la malla al componente
+		MeshEnemigo->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+		MeshEnemigo->SetRelativeScale3D(FVector(1.8f, 1.8f, 3.4f));
 	}
 
 	// para activar el evento de colisión
@@ -217,4 +220,24 @@ void AEnemigo::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Other
         UE_LOG(LogTemp, Warning, TEXT("Jugador tocado por enemigo"));
         Jugador->Paralizar(3.0f); // Asegúrate de que esta función exista en el Character
     }
+}
+
+void AEnemigo::RecibirDanio(int32 Cantidad)
+{
+	Vida -= Cantidad;
+	if (Vida <= 0)
+	{
+		// Buscar al personaje en el mundo (suponiendo que hay uno solo)
+		for (TActorIterator<ABomberMan_012025Character> It(GetWorld()); It; ++It)
+		{
+			ABomberMan_012025Character* Jugador = *It;
+			if (Jugador)
+			{
+				Jugador->SumarMuerte();
+				break; // Salimos porque ya encontramos uno
+			}
+		}
+		// Destruir bloque
+		Destroy();
+	}
 }

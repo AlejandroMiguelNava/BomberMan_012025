@@ -24,3 +24,10 @@ AEnemigoTerrestre::AEnemigoTerrestre()
 	}
 }
 
+void AEnemigoTerrestre::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Vida = 10;
+}
+

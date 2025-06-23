@@ -4,24 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Puerta.h"
-#include "PuertaTrampa.generated.h"
+#include "PuertaVictoria.generated.h"
 
-//
 class UBoxComponent;
-
 UCLASS()
-class BOMBERMAN_012025_API APuertaTrampa : public APuerta
+class BOMBERMAN_012025_API APuertaVictoria : public APuerta
 {
 	GENERATED_BODY()
 	
 public:
-	APuertaTrampa();
+	APuertaVictoria();
 
 protected:
 	virtual void BeginPlay() override;
 
 private:
-	class APuertaFacade* PuertaFacade;
+	class AScoreSystem* ScoreSystem;
 
 public:
 

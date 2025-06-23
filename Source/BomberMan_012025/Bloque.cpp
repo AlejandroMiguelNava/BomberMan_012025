@@ -21,7 +21,7 @@ ABloque::ABloque()
 		MallaBloque->SetStaticMesh(ObjetoMallaBloque.Object);
 
 		MallaBloque->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-		MallaBloque->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
+		MallaBloque->SetRelativeScale3D(FVector(1.0f, 1.0f, 4.0f));
 	}
 
 	FloatSpeed = 5.0f;

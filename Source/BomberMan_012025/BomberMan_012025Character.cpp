@@ -13,6 +13,7 @@
 #include "InputMappingContext.h"
 #include <Kismet/GameplayStatics.h>//este include es para que el pueda quedarse paralizado
 #include "PuertaFacade.h"
+#include "ScoreSystem.h"
 #include "EngineUtils.h" // Ensure TActorIterator is included
 
 
@@ -57,7 +58,9 @@ ABomberMan_012025Character::ABomberMan_012025Character()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
-	
+
+	//  Bomba
+	ClaseBomba = ABomba::StaticClass();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -79,6 +82,9 @@ void ABomberMan_012025Character::NotifyControllerChanged()
 
 void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	
+	PlayerInputComponent->BindKey(EKeys::E, IE_Pressed, this, &ABomberMan_012025Character::ColocarBomba);
+
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
@@ -93,7 +99,7 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* Play
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::Look);
 
 		// Colocar Bomba
-		EnhancedInputComponent->BindAction(ColocarBombation, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::ColocarBomba);
+		//EnhancedInputComponent->BindAction(ColocarBombaAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::ColocarBomba);
 	}
 	else
 	{
@@ -142,8 +148,12 @@ void ABomberMan_012025Character::BeginPlay()
 	Super::BeginPlay();
 
     Hp = 10;
-	//RecibirDanio(); // Inicializar el HP del jugador
 	
+}
+void ABomberMan_012025Character::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	TiempoJugado += DeltaTime;
 }
 
 //funcion para paralizar al jugador
@@ -208,5 +218,35 @@ void ABomberMan_012025Character::Entrar()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("No se pudo crear la fachada de la puerta"));
 	}
-	
+}
+
+void ABomberMan_012025Character::SumarMuerte()
+{
+	TotalKills++;
+}
+
+void ABomberMan_012025Character::EntrarPV()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Entraste en la puerta"));
+
+	// Suponiendo que ya tenés acceso al tiempo tomado y enemigos eliminados
+	float TiempoFinal = TiempoJugado;
+	//float TiempoFinal = GetWorld()->GetTimeSeconds() - TiempoInicio;
+	int32 EnemigosMuertos = TotalKills;
+
+	// Buscar el sistema de puntaje en el mundo
+	for (TActorIterator<AScoreSystem> It(GetWorld()); It; ++It)
+	{
+		AScoreSystem* ScoreSystem = *It;
+		if (ScoreSystem)
+		{
+			int32 PuntajeFinal = ScoreSystem->GetScore(TiempoFinal, EnemigosMuertos);
+
+			// Mostrar mensaje en pantalla
+			FString Mensaje = FString::Printf(TEXT("¡Has ganado! Puntaje final: %d"), PuntajeFinal);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, Mensaje);
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("¡Has ganado! Puntaje final: %d"), PuntajeFinal);
+			// También podrías usar un widget para mostrarlo en UI real
+		}
+	}
 }

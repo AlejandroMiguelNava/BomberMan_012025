@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "BomberMan_012025Character.h"
+#include "PuertaTrampa.h"
 
 
 // Sets default values
@@ -29,7 +30,7 @@ APuerta::APuerta()
 
 	// para activar el evento de colisión
 	MallaPuerta->SetGenerateOverlapEvents(true);
-	MallaPuerta->OnComponentBeginOverlap.AddDynamic(this, &APuerta::OnOverlapBegin);
+	//MallaPuerta->OnComponentBeginOverlap.AddDynamic(this, &APuerta::OnOverlapBegin);
 	MallaPuerta->SetCollisionProfileName(TEXT("OverlapAllDynamic")); // O ajusta según necesidad
 }
 
@@ -44,10 +45,9 @@ void APuerta::BeginPlay()
 void APuerta::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
-void APuerta::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+/*void APuerta::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -58,4 +58,4 @@ void APuerta::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 		Destroy();
 	}
 
-}
+}*/

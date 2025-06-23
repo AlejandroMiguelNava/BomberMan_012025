@@ -26,6 +26,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	int32 Vida;
+
+	virtual void RecibirDanio(int32 Cantidad);
+
 protected:
 	// Componente de malla estática para el enemigo
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Visual")

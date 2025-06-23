@@ -17,14 +17,15 @@ ABloqueConcreto::ABloqueConcreto()
 	// Establecer valores predeterminados
     PrimaryActorTick.bCanEverTick = true; // Habilitar Tick()
 
-        AmplitudMovimiento = 50.0f; // Altura máxima que sube y baja
-        VelocidadMovimiento = 2.0f; // Velocidad del movimiento
+        AmplitudMovimiento = 80.0f; // Altura máxima que sube y baja
+        VelocidadMovimiento = 1.0f; // Velocidad del movimiento
 }
 
     void ABloqueConcreto::BeginPlay()
     {
         Super::BeginPlay();
         PosicionInicial = GetActorLocation(); // Guardar la posición inicial
+        Dureza = 50;
     }
 
     void ABloqueConcreto::Tick(float DeltaTime)

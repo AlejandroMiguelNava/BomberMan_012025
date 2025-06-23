@@ -67,10 +67,6 @@ void ABomba::BeginPlay()
 
 	SetActorScale3D(EscalaInicial); // Establecer la escala inicial
 	bPuedeCrecer = true;
-	// Obtener el mundo y verificar si el efecto de explosión se ha cargado correctamente
-    
-	// Iniciar el timer para detonar la bomba
-	//GetWorld()->GetTimerManager().SetTimer(TimerHandleExplosion, this, &ABomba::Detonar, TiempoDetonacion, false);
 }
 
 // Called every frame
@@ -116,6 +112,18 @@ void ABomba::Explotar()
 			Bloque->RecibirDanio(Danio);
 		}
 	}
+    //para hacer daño al los enemigos
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemigo::StaticClass(), ActoresEnAlcance);
+    for (AActor* Actor : ActoresEnAlcance)
+    {
+        AEnemigo* Enemigo = Cast<AEnemigo>(Actor);
+        if (Enemigo && FVector::Dist(Enemigo->GetActorLocation(), PosicionBomba) <= RadioExplosion)
+        {
+            Enemigo->RecibirDanio(Danio);
+        }
+    }
+
+
     //dar el efecto de explocion
     if (EfectoExplosion)
     {
@@ -123,30 +131,3 @@ void ABomba::Explotar()
     }
 
 }
-
-/*
-void ABomba::Detonar()
-{
-    FVector PosicionBomba = GetActorLocation();
-
-    // Destruir bloques dentro del radio
-    for (ABloque* Bloque : Bloques)
-    {
-        if (Bloque && FVector::Dist(Bloque->GetActorLocation(), PosicionBomba) <= RadioExplosion)
-        {
-            Bloque->Destroy();
-        }
-    }
-
-    // Destruir enemigos dentro del radio
-    for (AEnemigo* Enemigo : Enemigos)
-    {
-        if (Enemigo && FVector::Dist(Enemigo->GetActorLocation(), PosicionBomba) <= RadioExplosion)
-        {
-            Enemigo->Destroy();
-        }
-    }
-
-    // Destruir la bomba después de explotar
-    Destroy();
-}*/

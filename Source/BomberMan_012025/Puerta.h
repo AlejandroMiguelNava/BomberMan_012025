@@ -29,8 +29,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Componentes")
 	UStaticMeshComponent* MallaPuerta;
 
-	UFUNCTION()
-	void OnOverlapBegin(
+	// Evento de inicio de solapamiento
+	/*UFUNCTION()
+    virtual void OnOverlapBegin(
 		UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
@@ -40,5 +41,6 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere)
-	UBoxComponent* TriggerBox;
+	UBoxComponent* TriggerBox;*/
+
 };
